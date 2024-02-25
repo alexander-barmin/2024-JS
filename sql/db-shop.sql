@@ -1,10 +1,11 @@
+-- create shop data base structure
 CREATE TABLE IF NOT EXISTS customers
 (
     customer_id SERIAL PRIMARY KEY,
     first_name VARCHAR(128) NOT NULL,
     last_name VARCHAR(128) NOT NULL,
-    phone VARCHAR(20) NOT NULL,
-    email VARCHAR(255) NOT NULL,
+    phone VARCHAR(20) NOT NULL UNIQUE,
+    email VARCHAR(255) NOT NULL UNIQUE,
     address TEXT NOT NULL
 );
 
