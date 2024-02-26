@@ -132,6 +132,50 @@ class MyList {
         found.value = newValue;
         return found;
     }
+
+    delete(value) {
+        const found = this.search(value);
+        if (!found) {
+            return null;
+        }
+        if (found === this._start) {
+            this._start = found.next;
+            if (this._start) {
+                this._start.prev = null;
+            }
+            if (found === this._end) {
+                this._end = null;
+            }
+        }
+        else if (found === this._end) {
+            this._end = found.prev;
+            if (this._end) {
+                this._end.next = null;
+            }
+        }
+        else {
+            const prevItem = found.prev;
+            const nextItem = found.next;
+            if (prevItem) {
+                prevItem.next = nextItem;
+            }
+            if (nextItem) {
+                nextItem.prev = prevItem;
+            }
+        }
+        this._count--;
+        return found;
+    }
+
+    get length() {
+        let curr = this._start;
+        let i = 0;
+        while (curr) {
+            curr = curr.next;
+            i++;
+        }
+        return i;
+    }
 }
 
 const item = new MyItem('str1');
@@ -155,3 +199,10 @@ list.change('str3', 'str3fix');
 found = list.search('str3fix');
 console.log('found changed item -> %s, changed list:', found && found.value);
 list.print();
+
+list.delete('str3fix');
+found = list.search('str3fix');
+console.log('found changed item -> %s, changed list:', found && found.value);
+list.print();
+
+console.log('Count item: %d, length list:%d', list && list.count, list.length);
