@@ -66,13 +66,27 @@ class MyList {
         this._count++;
         return this;
     }
+
+    prepend(value) {
+        const item = new MyItem(value);
+        if (this._start) {
+            item.next = this._start;
+        }
+        this._start = item;
+        if (!this._end) {
+            this._end = item;
+        }
+        this._count++;
+        return this;
+    }
+
     print() {
         if (!this._start) {
             console.log('empty!');
         }
         else {
             let curr = this._start;
-            while(curr) {
+            while (curr) {
                 console.log(curr && curr.value);
                 curr = curr.next;
             }
@@ -86,5 +100,7 @@ console.log('my first item:', item && item.value);
 const list = new MyList();
 list.append("str1");
 list.append("str2");
+list.prepend("str2");
+list.prepend("str3");
 console.log('my first list (count item %d):', list && list.count);
 list.print();
