@@ -80,6 +80,20 @@ class MyList {
         return this;
     }
 
+    search(value) {
+        if (!this._start) {
+            return null;
+        }
+        let curr = this._start;
+        while (curr) {
+            if (curr.value === value) {
+                return curr;
+            }
+            curr = curr.next;
+        }
+        return null;
+    }
+
     print() {
         if (!this._start) {
             console.log('empty!');
@@ -104,3 +118,6 @@ list.prepend("str2");
 list.prepend("str3");
 console.log('my first list (count item %d):', list && list.count);
 list.print();
+
+let search = list.search('str2');
+console.log('found item -> %s.', search && search.value);
