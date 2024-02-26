@@ -94,6 +94,23 @@ class MyList {
         return null;
     }
 
+    insertAfter(after, value) {
+        const found = this.search(after);
+        if ( !found ) {
+            return null;
+        }
+        const item = new MyItem(value);
+        if (!found.next) {
+            console.log('end!!!');
+            this._end = item;
+        }
+        item.next = found.next;
+        item.prev = found;
+        found.next = item;
+        this._count++;
+        return this;
+    }
+
     print() {
         if (!this._start) {
             console.log('empty!');
@@ -114,10 +131,15 @@ console.log('my first item:', item && item.value);
 const list = new MyList();
 list.append("str1");
 list.append("str2");
-list.prepend("str2");
 list.prepend("str3");
+list.prepend("str4");
 console.log('my first list (count item %d):', list && list.count);
 list.print();
 
-let search = list.search('str2');
-console.log('found item -> %s.', search && search.value);
+let found = list.search('str2');
+console.log('found item -> %s.', found && found.value);
+
+list.insertAfter('str1', 'str5');
+found = list.search('str5');
+console.log('found insert item -> %s, changed list:', found && found.value);
+list.print();
