@@ -5,51 +5,52 @@
 */
 
 class MyItem {
-    constructor(value) {
+    private _next: MyItem | null = null;
+    private _prev: MyItem | null = null;
+    private _value: string | null;
+
+    constructor(value : string | null) {
         this._value = value;
-        this._next = null;
-        this._prev = null;
     }
-    get value() {
+    get value() : string | null {
         return this._value;
     }
-    set value(value) {
+    set value(value : string | null) {
         this._value = value;
     }
-    set next(item) {
+    set next(item : MyItem | null) {
         this._next = item;
     }
-    set prev(item) {
+    set prev(item : MyItem | null) {
         this._prev = item;
     }
-    get next() {
+    get next() : MyItem | null {
         return this._next;
     }
-    get prev() {
+    get prev() : MyItem | null {
         return this._prev;
     }
 }
 
 class MyList {
-    constructor() {
-        this._start = null;
-        this._end = null;
-        this._count = 0;
-    }
+    private _start: MyItem | null = null;
+    private _end: MyItem | null = null;
+    private _count: number = 0;
+    constructor() { }
 
-    set start(item) {
+    set start(item: MyItem | null) {
         this._start = item;
     }
-    set end(item) {
+    set end(item: MyItem | null) {
         this._end = item;
     }
-    get start() {
+    get start(): MyItem | null {
         return this._start;
     }
-    get end() {
+    get end(): MyItem | null {
         return this._end;
     }
-    get count() {
+    get count(): number {
         return this._count;
     }
 
@@ -58,7 +59,7 @@ class MyList {
             console.log('empty!');
         }
         else {
-            let curr = this._start;
+            let curr: MyItem | null = this._start;
             while (curr) {
                 console.log(curr && curr.value);
                 curr = curr.next;
@@ -66,11 +67,11 @@ class MyList {
         }
     }
 
-    search(value) {
+    search(value: string): MyItem | null {
         if (!this._start) {
             return null;
         }
-        let curr = this._start;
+        let curr: MyItem | null = this._start;
         while (curr) {
             if (curr.value === value) {
                 return curr;
@@ -80,7 +81,7 @@ class MyList {
         return null;
     }
 
-    append(value) {
+    append(value: string): MyItem | null {
         const item = new MyItem(value);
         if (!this._start) {
             this._start = item;
@@ -91,10 +92,10 @@ class MyList {
         item.prev = this._end;
         this._end = item;
         this._count++;
-        return this;
+        return item;
     }
 
-    prepend(value) {
+    prepend(value: string): MyItem | null {
         const item = new MyItem(value);
         if (this._start) {
             item.next = this._start;
@@ -104,10 +105,10 @@ class MyList {
             this._end = item;
         }
         this._count++;
-        return this;
+        return item;
     }
 
-    insertAfter(after, value) {
+    insertAfter(after: string, value: string): MyItem | null {
         const found = this.search(after);
         if (!found) {
             return null;
@@ -121,10 +122,10 @@ class MyList {
         item.prev = found;
         found.next = item;
         this._count++;
-        return this;
+        return item;
     }
 
-    change(value, newValue) {
+    change(value: string, newValue: string): MyItem | null {
         const found = this.search(value);
         if (!found) {
             return null;
@@ -133,7 +134,7 @@ class MyList {
         return found;
     }
 
-    delete(value) {
+    delete(value: string): MyItem | null {
         const found = this.search(value);
         if (!found) {
             return null;
@@ -167,7 +168,7 @@ class MyList {
         return found;
     }
 
-    get length() {
+    get length(): number {
         let curr = this._start;
         let i = 0;
         while (curr) {
