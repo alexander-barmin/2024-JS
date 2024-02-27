@@ -54,15 +54,19 @@ class MyList {
     }
 
     print() {
-        if (!this._start) {
-            console.log('empty!');
-        }
-        else {
-            let curr = this._start;
-            while (curr) {
-                console.log(curr && curr.value);
-                curr = curr.next;
+        try {
+            if (!this._start) {
+                throw new Error('List is empty!');
             }
+            else {
+                let curr = this._start;
+                while (curr) {
+                    console.log(curr && curr.value);
+                    curr = curr.next;
+                }
+            }
+        } catch (err) {
+            console.log(err);
         }
     }
 
@@ -182,6 +186,8 @@ const item = new MyItem('str1');
 console.log('my first item:', item && item.value);
 
 const list = new MyList();
+list.print();
+
 list.append("str2");
 list.prepend("str1");
 console.log('my first list (count item %d):', list && list.count);
