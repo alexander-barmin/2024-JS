@@ -16,11 +16,11 @@ class MyItem {
     set value(value) {
         this._value = value;
     }
-    set next(node) {
-        this._next = node;
+    set next(item) {
+        this._next = item;
     }
-    set prev(node) {
-        this._prev = node;
+    set prev(item) {
+        this._prev = item;
     }
     get next() {
         return this._next;
