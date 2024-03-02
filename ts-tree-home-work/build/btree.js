@@ -101,9 +101,23 @@ class MyBinaryTree {
         }
         return this.postOrder(this._root, callback);
     }
-    traverseBFS() {
-        const queue = [this._root];
-        console.log(queue);
+    recursionSearch(node, value) {
+        if (!node) {
+            return;
+        }
+        if (node.value === value) {
+            console.log('!!!', node.value);
+        }
+        console.log(node.value);
+        if (node.value > value) {
+            this.recursionSearch(node.left, value);
+        }
+        if (node.value < value) {
+            this.recursionSearch(node.right, value);
+        }
+    }
+    searchNode(value) {
+        this.recursionSearch(this._root, value);
     }
 }
 const myTree = new MyBinaryTree();
@@ -117,9 +131,24 @@ myTree.add(2);
 myTree.add(4);
 myTree.add(1);
 //console.log(myTree);
+console.log('--DFS pre--');
+myTree.traverseDFS((node) => { console.log(node.value); }, 'preOrder');
+console.log('--search--');
+myTree.searchNode(8);
 /*
+console.log('--DFS pre--');
+myTree.traverseDFS((node: MyNode) => { console.log(node.value) },
+    'preOrder'
+);
+console.log('--DFS in--');
+myTree.traverseDFS((node: MyNode) => { console.log(node.value) },
+    'inOrder'
+);
+console.log('--DFS post--');
 myTree.traverseDFS((node: MyNode) => { console.log(node.value) },
     'postOrder'
 );
-*/
-myTree.traverseBFS();
+
+console.log('--BFS--');
+myTree.traverseBFS( (node: MyNode) => { console.log(node.value) } );
+*/ 
