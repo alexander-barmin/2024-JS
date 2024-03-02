@@ -131,6 +131,13 @@ class MyBinaryTree {
     searchNode(value: number): MyNode | null {
         return this.recursionSearch(this._root, value);
     }
+    changeNode(value: number, newValue: number): MyNode | null {
+        const found = this.searchNode(value);
+        if (found) {
+            found.value = newValue;
+        }
+        return found;
+    }
 }
 
 const myTree = new MyBinaryTree();
@@ -138,19 +145,24 @@ myTree.add(5);
 myTree.add(4);
 myTree.add(7);
 myTree.add(3);
-myTree.add(4);
 myTree.add(2);
-myTree.add(3);
+myTree.add(6);
+myTree.add(8);
 //console.log(myTree);
 
-/*console.log('--DFS pre--');
+console.log('--DFS pre--');
 myTree.traverseDFS((node: MyNode) => { console.log(node.value) },
     'preOrder'
 );
-*/
 
 console.log('--search--');
-console.log(myTree.searchNode(10));
+console.log(myTree.searchNode(4));
+
+console.log('--before change--');
+console.log(myTree);
+myTree.changeNode(4, 10);
+console.log('--after change--');
+console.log(myTree);
 
 /*
 console.log('--DFS pre--');
